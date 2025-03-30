@@ -1,0 +1,281 @@
+'Propeller
+'Realizado por: Mateo Peralta
+'Curso: 3 "A"
+program Propeller
+'Definición de símbolos con delay's de diferentes tiempos
+symbol pause = delay_ms(2)
+symbol pause1 = delay_ms(3)
+symbol pausep = delay_ms(300)
+symbol pausec = delay_ms(500)
+symbol pause15 = delay_ms(25)
+
+'Definición de constantes para cada letra a usar
+const a as byte [5]=(255,9,9,9,255)
+const b as byte [5]= (255,137,137,137,118)
+const cc as byte [5]= (126,129,129,129,66)
+const dd as byte [5]= (255,129,129,129,126)
+const ee as byte [5]=(255,145,145,145,129)
+const ff as byte [5]= (255,9,9,9,9)
+const g as byte [5]= (126,129,145,145,113)
+const h as byte [5]=(255,16,16,16,255)
+const i as byte [5]= (129,129,255,129,129)
+const jj as byte [5]= (65,129,129,127,1)
+const k as byte [5]= (255,8,20,34,193)
+const l as byte [5]=(255,128,128,128,128)
+const m as byte [5]=(255,7,8,7,255)
+const n as byte [5]= (255,6,24,224,255)
+const nn as byte [5]=(254,12,49,225,254)
+const o as byte [5]=(255,129,129,129,255)
+const pp as byte [5]= (255,17,17,17,14)
+const q as byte [5]= (255,129,161,255,128)
+const rr as byte [5]= (255,9,9,25,230)
+const ss as byte [5]=(143,137,137,137,249)
+const t as byte [5]=(1,1,255,1,1)
+const u as byte [5]=(255,128,128,128,255)
+const v as byte [5]= (63,64,128,64,63)
+const ww as byte [5]= (127,128,120,128,127)
+'const x as byte [5]=
+const y as byte [5]= (135,136,136,136,255)
+const zz as byte [5]= (193,161,145,137,135)
+'Definición de constantes para cada imagen a visualizar
+const flecha as byte [5] = (4,2,255,2,4)
+
+dim veces, repet, repetf as byte        'Declaración de variables a usar
+main:
+anselh = 0   'Puerto B como digital
+trisb = 255  'Puerto B como entrada (pulsantes)
+trisd = 0    'Puerto D como salida
+portd = 0    'Puerto D empieza en 0
+
+
+while(1)
+'PARPADEO DE 8 LEDS
+for repet = 0 to 7
+    portd = 255
+    pausep
+    portd = 0  'Se apagan leds
+    pausep
+next repet
+
+
+'VISUALIAR "HOLA"
+for repet = 0 to 255
+    for veces = 0 to 4
+        portd = h[veces]  'Se visualiza la letra H "[veces]" indica la posición de la letra (cada letra tiene 5 posiciones)
+        pause
+    next veces
+
+    portd = 0 'Se apagan leds
+    pause1
+
+    for veces = 0 to 4
+        portd = o[veces] 'Se visualiza la letra O "[veces]" indica la posición de la letra (cada letra tiene 5 posiciones)
+        pause
+    next veces
+
+    portd = 0 'Se apagan leds
+    pause1
+
+    for veces = 0 to 4
+        portd = l[veces] 'Se visualiza la letra L "[veces]" indica la posición de la letra (cada letra tiene 5 posiciones)
+        pause
+    next veces
+
+    portd = 0 'Se apagan leds
+    pause1
+
+    for veces = 0 to 4
+        portd = a[veces] 'Se visualiza la letra A "[veces]" indica la posición de la letra (cada letra tiene 5 posiciones)
+        pause
+    next veces
+    
+
+    portd = 0 'Se apagan leds
+    pause15
+
+next repet
+portd = 0 'Se apagan leds
+pausec 'Pause entre palabra y palabra
+      
+'VISUALIZAR "UETS"
+for repet = 0 to 255
+
+    for veces = 0 to 4
+        portd = u [veces]   'Se visualiza la letra U "[veces]" indica la posición de la letra (cada letra tiene 5 posiciones)
+        pause
+    next veces
+
+    portd = 0 'Se apagan leds
+    pause1
+
+    for veces = 0 to 4
+        portd = ee [veces]   ''Se visualiza la letra E "[veces]" indica la posición de la letra (cada letra tiene 5 posiciones)
+        pause
+    next veces
+
+    portd = 0 'Se apagan leds
+    pause1
+
+    for veces = 0 to 4
+        portd = t [veces]    'Se visualiza la letra T "[veces]" indica la posición de la letra (cada letra tiene 5 posiciones)
+        pause
+    next veces
+
+    portd = 0 'Se apagan leds
+    pause1
+
+    for veces = 0 to 4
+        portd = ss [veces]   'Se visualiza la letra S "[veces]" indica la posición de la letra (cada letra tiene 5 posiciones)
+        pause
+    next veces
+
+    portd = 0 'Se apagan leds
+    pause15
+
+next repet
+
+portd = 0 'Se apagan leds
+pausec  'Pause entre palabra y palabra
+
+
+
+'VISUALIZAR MENSAJE CUALQUIERA "FELIZ AÑO NUEVO"
+
+'inicia frase
+    for repet = 0 to 80
+        for veces = 0 to 4
+            portd = ff [veces] 'Se visualiza la letra F "[veces]" indica la posición de la letra (cada letra tiene 5 posiciones)
+            pause
+        next veces
+
+        portd = 0 'Se apagan leds
+        pause1
+
+        for veces = 0 to 4
+            portd = ee [veces]   'Se visualiza la letra E "[veces]" indica la posición de la letra (cada letra tiene 5 posiciones)
+            pause
+        next veces
+
+        portd = 0 'Se apagan leds
+        pause1
+
+        for veces = 0 to 4
+            portd = l [veces]    'Se visualiza la letra L "[veces]" indica la posición de la letra (cada letra tiene 5 posiciones)
+            pause
+        next veces
+
+        portd = 0 'Se apagan leds
+        pause1
+
+        for veces = 0 to 4
+            portd = i [veces]    'Se visualiza la letra I "[veces]" indica la posición de la letra (cada letra tiene 5 posiciones)
+            pause
+        next veces
+
+        portd = 0 'Se apagan leds
+        pause1
+
+        for veces = 0 to 4
+            portd = zz [veces]   'Se visualiza la letra Z "[veces]" indica la posición de la letra (cada letra tiene 5 posiciones)
+            pause
+        next veces
+
+        portd = 0 'Se apagan leds
+        pause15
+
+    next repet
+
+    pausec    'Pause entre palabra y palabra
+
+    for repet = 0 to 80
+        for veces = 0 to 4
+            portd = a [veces]      'Se visualiza la letra A "[veces]" indica la posición de la letra (cada letra tiene 5 posiciones)
+            pause
+        next veces
+
+        portd = 0 'Se apagan leds
+        pause1
+
+        for veces = 0 to 4
+            portd = nn [veces]   'Se visualiza la letra N "[veces]" indica la posición de la letra (cada letra tiene 5 posiciones)
+            pause
+        next veces
+
+        portd = 0 'Se apagan leds
+        pause1
+
+        for veces = 0 to 4
+            portd = o [veces]    'Se visualiza la letra O "[veces]" indica la posición de la letra (cada letra tiene 5 posiciones)
+            pause
+        next veces
+
+        portd = 0 'Se apagan leds
+        pause15
+
+    next repet
+
+    pausec    'Pause entre palabra y palabra
+
+    for repet = 0 to 80
+        for veces = 0 to 4
+            portd = n [veces]      'Se visualiza la letra N "[veces]" indica la posición de la letra (cada letra tiene 5 posiciones)
+            pause
+        next veces
+
+        portd = 0 'Se apagan leds
+        pause1
+
+        for veces = 0 to 4
+            portd = u [veces]    ''Se visualiza la letra U "[veces]" indica la posición de la letra (cada letra tiene 5 posiciones)
+            pause
+        next veces
+
+        portd = 0 'Se apagan leds
+        pause1
+
+        for veces = 0 to 4
+            portd = ee [veces]   ''Se visualiza la letra E "[veces]" indica la posición de la letra (cada letra tiene 5 posiciones)
+            pause
+        next veces
+
+        portd = 0 'Se apagan leds
+        pause1
+
+        for veces = 0 to 4
+            portd = v [veces]    'Se visualiza la letra V "[veces]" indica la posición de la letra (cada letra tiene 5 posiciones)
+            pause
+        next veces
+
+        portd = 0 'Se apagan leds
+        pause1
+
+        for veces = 0 to 4
+            portd = o [veces]    'Se visualiza la letra O "[veces]" indica la posición de la letra (cada letra tiene 5 posiciones)
+            pause
+        next veces
+
+        portd = 0 'Se apagan leds
+        pause15
+
+    next repet
+
+    pausec    'Pause entre palabra y palabra
+'final frase
+
+
+portd = 0  'Se apagan leds
+pausec  'Pause entre palabra y palabra
+
+'Visuzalizar figura (flecha)
+for repet = 0 to 255
+    for veces = 0 to 4
+        portd = flecha[veces]  'Se visualiza la figura flecha, "[veces]" indica el posición del led a encender de la figura (tiene 5 posiciones)
+        pause
+    next veces
+    portd = 0 'Se apagan leds
+    pause15
+next repet
+portd = 0
+pausec
+wend
+end.

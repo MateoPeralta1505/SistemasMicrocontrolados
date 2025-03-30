@@ -1,0 +1,6 @@
+[PROJECTS]
+Count=2
+Project0=..\Manejo LCD\Código Mikro Basic\ManejoLCD.mbppi
+Project1=Propeller.mbppi
+[ActiveProject]
+Index=1
