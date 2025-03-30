@@ -1,0 +1,13 @@
+0	1	mBPic.exe -MSF -DBG -pP16F887 -Y -DL -O11111114 -fo20 -N"C:\Users\Mateo Peralta\Desktop\Microcontroladores 3 BGU\Manejo Displays 4 Dígitos\CódigoMikroBasic\Contador2Digitos_If.mbppi" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroBasic PRO for PIC\Defs\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroBasic PRO for PIC\Uses\P16\" -SP"C:\Users\Mateo Peralta\Desktop\Microcontroladores 3 BGU\Manejo Displays 4 Dígitos\CódigoMikroBasic\" -SP"C:\Users\Mateo Peralta\Desktop\Microcontroladores 3 BGU\Manejo Displays 4 Dígitos\Contador 2 Dígitos\" "__Lib_Math.mcl" "__Lib_MathDouble.mcl" "__Lib_System.mcl" "__Lib_Delays.mcl" "Contador2Digitos_If.mbas"	 
+diagnostics: 0	155	Available RAM: 352 [bytes], Available ROM: 8192 [bytes]	 
+diagnostics: 0	133	Compilation Started	C:\Users\Mateo Peralta\Desktop\Microcontroladores 3 BGU\Manejo Displays 4 Dígitos\Contador 2 Dígitos\Contador2Digitos_If.mbas
+hint: 1	1015	Hint: Compiling unit "C:\Users\Mateo Peralta\Desktop\Microcontroladores 3 BGU\Manejo Displays 4 Dígitos\Contador 2 Dígitos\Contador2Digitos_If.mbas"	Contador2Digitos_If.mbas
+hint: 40	1010	Hint: Unit "Contador2Digitos_If.mbas" has been recompiled	Contador2Digitos_If.mbas
+diagnostics: 0	134	Compiled Successfully	C:\Users\Mateo Peralta\Desktop\Microcontroladores 3 BGU\Manejo Displays 4 Dígitos\Contador 2 Dígitos\Contador2Digitos_If.mbas
+diagnostics: 0	139	All files Compiled in 16 ms	 
+hint: 0	1144	Used RAM (bytes): 6 (2%)  Free RAM (bytes): 346 (98%)	Used RAM (bytes): 6 (2%)  Free RAM (bytes): 346 (98%)
+hint: 0	1144	Used ROM (program words): 188 (2%)  Free ROM (program words): 8004 (98%)	Used ROM (program words): 188 (2%)  Free ROM (program words): 8004 (98%)
+diagnostics: 0	145	Project Linked Successfully	Contador2Digitos_If.mbppi
+diagnostics: 0	140	Linked in 31 ms	 
+diagnostics: 0	141	Project 'Contador2Digitos_If.mbppi' completed: 62 ms	 
+diagnostics: 0	103	Finished successfully: 23 nov. 2024, 16:12:45	Contador2Digitos_If.mbppi

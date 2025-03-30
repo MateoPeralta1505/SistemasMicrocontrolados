@@ -1,0 +1,322 @@
+program SelectCase_Procedimientos_ManejoDisplay4Digitos
+'MANEJO DEL DISPLAY DE 4 DÍGITOS SIN DECODIFICADOR IMPLEMENTANDO LAS ESTRUCTURAS "SELECT CASE" Y "SUB PROCEDURE"
+'ROTULACIÓN DE DISPLAYS
+'Realizado por: Mateo Peralta
+'Fecha de entrega: 19/11/2024
+'*******************************************************************************************************************
+' Declarations section 
+dim caracter as char 'Declarar la variable "caracter" como dato de tipo char
+dim dato, contaaux, digito, veces as byte  'Declarar las variables "dato", "contaaux", "digito" y "veces" como dato de tipo byte
+dim conta3 as word  'Declarar la variable "conta3" como dato de tipo word
+
+sub procedure letras          'Inicio de procedimiento "letras"
+    select case caracter      'Inicio de selector de casos "caracter"
+           case "A" dato = 119          'Dar una condición al caso "A"
+           case "H" dato = 118          'Dar una condición al caso "H"
+           case "O" dato = 63           'Dar una condición al caso "O"
+           case "L" dato = 56           'Dar una condición al caso "L"
+           case "U" dato = 62           'Dar una condición al caso "U"
+           case "E" dato = 121          'Dar una condición al caso "E"
+           case "T" dato = 120          'Dar una condición al caso "T"
+           case "S" dato = 109          'Dar una condición al caso "S"
+           case "P" dato = 115          'Dar una condición al caso "P"
+           case "I" dato = 48           'Dar una condición al caso "I"
+           case "C" dato = 57           'Dar una condición al caso "C"
+    end select  'Fin selector de casos "caracter"
+end sub         'Fin del procedimiento "letras"
+
+sub procedure numeros    'Inicio de procedimiento "numeros"
+    select case digito   'Inicio de selector de casos "digito"
+           case 0 dato = 63      'Dar una condición al caso "0"
+           case 1 dato = 6       'Dar una condición al caso "1"
+           case 2 dato = 91      'Dar una condición al caso "2"
+           case 3 dato = 79      'Dar una condición al caso "3"
+           case 4 dato = 102     'Dar una condición al caso "4"
+           case 5 dato = 109     'Dar una condición al caso "5"
+           case 6 dato = 125     'Dar una condición al caso "6"
+           case 7 dato = 7       'Dar una condición al caso "7"
+           case 8 dato = 127     'Dar una condición al caso "8"
+           case 9 dato = 111     'Dar una condición al caso "9"
+    end select  'Fin de selector de casos "digito"
+end sub         'Fin de procedimiento "numeros"
+
+main:
+'   Main program 
+trisb=0  'Configurar puerto b como salida
+trisd=0  'Configurar puerto d como salida
+portb=0  'Puerto b inicia apagado
+portd=0  'Puerto d inicia apagado
+anselh=0 'Configuración del puerto b como digital
+
+while (1)               'Inicio de bucle infinito
+      For contaaux = 0 to 255   'Inicio bucle for para mostrar "HOLA" en el display de 4 dígitos por aproximadamente 2 segundos
+          caracter = "H"  'Definir un dato inicial a la variable "caracter"
+          letras           'Llamar al procedimiento "letras"
+          portd = 0        'Abrir los 4 transistores
+          portb = dato     'Definir la variable dato al puerto b
+          portd = 0x10     'Cerrar el transistor del primer display
+          delay_ms(2)      'Retraso de 2ms
+          
+          caracter = "O"   'Definir un dato inicial a la variable "caracter"
+          letras           'Llamar al procedimiento "letras"
+          portd = 0        'Abrir los 4 transistores
+          portb = dato     'Definir la variable dato al puerto b
+          portd = 0x20     'Cerrar el transistor del segundo display
+          delay_ms(2)      'Retraso de 2ms
+          
+          caracter = "L"   'Definir un dato inicial a la variable "caracter"
+          letras           'Llamar al procedimiento "letras"
+          portd = 0        'Abrir los 4 transistores
+          portb = dato     'Definir la variable dato al puerto b
+          portd = 0x40     'Cerrar el transistor del tercer display
+          delay_ms(2)      'Retraso de 2ms
+          
+          caracter = "A"   'Definir un dato inicial a la variable "caracter"
+          letras           'Llamar al procedimiento "letras"
+          portd = 0        'Abrir los 4 transistores
+          portb = dato     'Definir la variable dato al puerto b
+          portd = 0x80     'Cerrar el transistor del cuarto display
+          delay_ms(2)      'Retraso de 2ms
+      next contaaux        'Fin bucle for para mostrar "HOLA" en el display de 4 dígitos
+
+      portd = 0        'Apagar todos los displays
+      delay_ms(500)    'Retraso de 500ms
+      
+      digito = 0       'Definir un dato inicial a la variable "digito"
+      numeros          'Llamar al procedimiento "numeros"
+      portd = 0        'Abrir los 4 transistores
+      portb = dato     'Definir la variable dato al puerto b
+      portd = 0x80     'Cerrar el transistor del cuarto display
+      delay_ms(400)    'Retraso de 400ms
+
+      digito = 1       'Definir un dato inicial a la variable "digito"
+      numeros          'Llamar al procedimiento "numeros"
+      portd = 0        'Abrir los 4 transistores
+      portb = dato     'Definir la variable dato al puerto b
+      portd = 0x40     'Cerrar el transistor del tercer display
+      delay_ms(400)    'Retraso de 400ms
+      
+      digito = 2       'Definir un dato inicial a la variable "digito"
+      numeros          'Llamar al procedimiento "numeros"
+      portd = 0        'Abrir los 4 transistores
+      portb = dato     'Definir la variable dato al puerto b
+      portd = 0x20     'Cerrar el transistor del segundo display
+      delay_ms(400)    'Retraso de 400ms
+      
+      digito = 3       'Definir un dato inicial a la variable "digito"
+      numeros          'Llamar al procedimiento "numeros"
+      portd = 0        'Abrir los 4 transistores
+      portb = dato     'Definir la variable dato al puerto b
+      portd = 0x10     'Cerrar el transistor del primer display
+      delay_ms(400)    'Retraso de 400ms
+      
+      portd=0          'Apagar todos los displays
+      delay_ms(500)    'Retraso de 500ms
+      
+      For veces = 0 to 2      'Inicio bucle for para mostrar "PIC " con recorrido ida y vuelta en el display de 4 dígitos
+          For contaaux = 0 to 100       'Inicio bucle for para mostrar "P   " en el display de 4 dígitos
+             caracter = "P"   'Definir un dato inicial a la variable "caracter"
+             letras           'Llamar al procedimiento "letras"
+             portd = 0        'Abrir los 4 transistores
+             portb = dato     'Definir la variable dato al puerto b
+             portd = 0x80     'Cerrar el transistor del cuarto display
+             delay_ms(2)      'Retraso de 2ms
+          next contaaux       'Fin bucle for para mostrar "P   " en el display de 4 dígitos
+          
+          For contaaux = 0 to 100  'Inicio bucle for para mostrar "PI   " en el display de 4 dígitos
+             caracter = "P"   'Definir un dato inicial a la variable "caracter"
+             letras           'Llamar al procedimiento "letras"
+             portd = 0        'Abrir los 4 transistores
+             portb = dato     'Definir la variable dato al puerto b
+             portd = 0x40     'Cerrar el transistor del tercer display
+             delay_ms(2)      'Retraso de 2ms
+
+             caracter = "I"   'Definir un dato inicial a la variable "caracter"
+             letras           'Llamar al procedimiento "letras"
+             portd = 0        'Abrir los 4 transistores
+             portb = dato     'Definir la variable dato al puerto b
+             portd = 0x80     'Cerrar el transistor del cuarto display
+             delay_ms(2)      'Retraso de 2ms
+          next contaaux       'Fin bucle for para mostrar "PI   " en el display de 4 dígitos
+          
+          For contaaux = 0 to 100  'Inicio bucle for para mostrar " PIC" en el display de 4 dígitos
+             caracter = "P"   'Definir un dato inicial a la variable "caracter"
+             letras           'Llamar al procedimiento "letras"
+             portd = 0        'Abrir los 4 transistores
+             portb = dato     'Definir la variable dato al puerto b
+             portd = 0x20     'Cerrar el transistor del segundo display
+             delay_ms(2)      'Retraso de 2ms
+
+             caracter = "I"   'Definir un dato inicial a la variable "caracter"
+             letras           'Llamar al procedimiento "letras"
+             portd = 0        'Abrir los 4 transistores
+             portb = dato     'Definir la variable dato al puerto b
+             portd = 0x40     'Cerrar el transistor del tercer display
+             delay_ms(2)      'Retraso de 2ms
+             
+             caracter = "C"   'Definir un dato inicial a la variable "caracter"
+             letras           'Llamar al procedimiento "letras"
+             portd = 0        'Abrir los 4 transistores
+             portb = dato     'Definir la variable dato al puerto b
+             portd = 0x80     'Cerrar el transistor del cuarto display
+             delay_ms(2)      'Retraso de 2ms
+          next contaaux       'Fin bucle for para mostrar " PIC" en el display de 4 dígitos
+          
+          For contaaux = 0 to 100  'Inicio bucle for para mostrar "PIC " en el display de 4 dígitos
+             caracter = "P"   'Definir un dato inicial a la variable "caracter"
+             letras           'Llamar al procedimiento "letras"
+             portd = 0        'Abrir los 4 transistores
+             portb = dato     'Definir la variable dato al puerto b
+             portd = 0x10     'Cerrar el transistor del primer display
+             delay_ms(2)      'Retraso de 2ms
+
+             caracter = "I"   'Definir un dato inicial a la variable "caracter"
+             letras           'Llamar al procedimiento "letras"
+             portd = 0        'Abrir los 4 transistores
+             portb = dato     'Definir la variable dato al puerto b
+             portd = 0x20     'Cerrar el transistor del segundo display
+             delay_ms(2)      'Retraso de 2ms
+
+             caracter = "C"   'Definir un dato inicial a la variable "caracter"
+             letras           'Llamar al procedimiento "letras"
+             portd = 0        'Abrir los 4 transistores
+             portb = dato     'Definir la variable dato al puerto b
+             portd = 0x40     'Cerrar el transistor del tercer display
+             delay_ms(2)      'Retraso de 2ms
+          next contaaux       'Fin bucle for para mostrar "PIC " en el display de 4 dígitos
+          
+          For contaaux = 0 to 100  'Inicio bucle for para mostrar " PIC" en el display de 4 dígitos
+             caracter = "P"   'Definir un dato inicial a la variable "caracter"
+             letras           'Llamar al procedimiento "letras"
+             portd = 0        'Abrir los 4 transistores
+             portb = dato     'Definir la variable dato al puerto b
+             portd = 0x20     'Cerrar el transistor del segundo display
+             delay_ms(2)      'Retraso de 2ms
+
+             caracter = "I"   'Definir un dato inicial a la variable "caracter"
+             letras           'Llamar al procedimiento "letras"
+             portd = 0        'Abrir los 4 transistores
+             portb = dato     'Definir la variable dato al puerto b
+             portd = 0x40     'Cerrar el transistor del tercer display
+             delay_ms(2)      'Retraso de 2ms
+
+             caracter = "C"   'Definir un dato inicial a la variable "caracter"
+             letras           'Llamar al procedimiento "letras"
+             portd = 0        'Abrir los 4 transistores
+             portb = dato     'Definir la variable dato al puerto b
+             portd = 0x80     'Cerrar el transistor del cuarto display
+             delay_ms(2)      'Retraso de 2ms
+          next contaaux       'Fin bucle for para mostrar " PIC" en el display de 4 dígitos
+          
+          For contaaux = 0 to 100  'Inicio bucle for para mostrar "  PI" en el display de 4 dígitos
+             caracter = "P"   'Definir un dato inicial a la variable "caracter"
+             letras           'Llamar al procedimiento "letras"
+             portd = 0        'Abrir los 4 transistores
+             portb = dato     'Definir la variable dato al puerto b
+             portd = 0x40     'Cerrar el transistor del tercer display
+             delay_ms(2)      'Retraso de 2ms
+
+             caracter = "I"   'Definir un dato inicial a la variable "caracter"
+             letras           'Llamar al procedimiento "letras"
+             portd = 0        'Abrir los 4 transistores
+             portb = dato     'Definir la variable dato al puerto b
+             portd = 0x80     'Cerrar el transistor del cuarto display
+               delay_ms(2)    'Retraso de 2ms
+          next contaaux       'Fin bucle for para mostrar "  PI" en el display de 4 dígitos
+          
+          For contaaux = 0 to 100  'Inicio bucle for para mostrar "   P" en el display de 4 dígitos
+             caracter = "P"   'Definir un dato inicial a la variable "caracter"
+             letras           'Llamar al procedimiento "letras"
+             portd = 0        'Abrir los 4 transistores
+             portb = dato     'Definir la variable dato al puerto b
+             portd = 0x80     'Cerrar el transistor del cuarto display
+             delay_ms(2)      'Retraso de 2ms
+          next contaaux       'Fin bucle for para mostrar "   P" en el display de 4 dígitos
+          portd=0        'Apagar todos los displays
+          delay_ms(350)  'Retraso de 350ms
+      next veces              'Fin bucle for para mostrar "PIC " con recorrido ida y vuelta en el display de 4 dígitos
+
+      delay_ms(500)      'Retraso de 500ms
+      
+      For veces = 0 to 1 'Inicio bucle for para mostrar parpadeo de "UETS" en el display de 4 dígitos
+      For contaaux = 0 to 25     'Inicio bucle for desde 0 a 25
+          caracter = "U"   'Definir un dato inicial a la variable "caracter"
+          letras           'Llamar al procedimiento "letras"
+          portd = 0        'Abrir los 4 transistores
+          portb = dato     'Definir la variable dato al puerto b
+          portd = 0x10     'Cerrar el transistor del primer display
+          delay_ms(2)      'Retraso de 2ms
+
+          caracter = "E"   'Definir un dato inicial a la variable "caracter"
+          letras           'Llamar al procedimiento "letras"
+          portd = 0        'Abrir los 4 transistores
+          portb = dato     'Definir la variable dato al puerto b
+          portd = 0x20     'Cerrar el transistor del segundo display
+          delay_ms(2)      'Retraso de 2ms
+
+          caracter = "T"   'Definir un dato inicial a la variable "caracter"
+          letras           'Llamar al procedimiento "letras"
+          portd = 0        'Abrir los 4 transistores
+          portb = dato     'Definir la variable dato al puerto b
+          portd = 0x40     'Cerrar el transistor del tercer display
+          delay_ms(2)      'Retraso de 2ms
+
+          caracter = "S"   'Definir un dato inicial a la variable "caracter"
+          letras           'Llamar al procedimiento "letras"
+          portd = 0        'Abrir los 4 transistores
+          portb = dato     'Definir la variable dato al puerto b
+          portd = 0x80     'Cerrar el transistor del cuarto display
+          delay_ms(2)      'Retraso de 2ms
+      next contaaux        'Fin bucle for desde 0 a 25
+      portd=0              'Apagar todos los displays
+      delay_ms(250)        'Retraso de 250ms
+      next veces           'Fin bucle for para mostrar parpadeo de "UETS" en el display de 4 dígitos
+      
+      delay_ms(500)        'Retraso de 500ms
+
+      For conta3 = 0 to 450 'Inicio bucle for para mostrar "HALO" en el display de 4 dígitos por aproximadamente 3 segundos
+          caracter = "H"   'Definir un dato inicial a la variable "caracter"
+          letras           'Llamar al procedimiento "letras"
+          portd = 0        'Abrir los 4 transistores
+          portb = dato     'Definir la variable dato al puerto b
+          portd = 0x10     'Cerrar el transistor del primer display
+          delay_ms(2)      'Retraso de 2ms
+
+          caracter = "A"   'Definir un dato inicial a la variable "caracter"
+          letras           'Llamar al procedimiento "letras"
+          portd = 0        'Abrir los 4 transistores
+          portb = dato     'Definir la variable dato al puerto b
+          portd = 0x20     'Cerrar el transistor del segundo display
+          delay_ms(2)      'Retraso de 2ms
+
+          caracter = "L"   'Definir un dato inicial a la variable "caracter"
+          letras           'Llamar al procedimiento "letras"
+          portd = 0        'Abrir los 4 transistores
+          portb = dato     'Definir la variable dato al puerto b
+          portd = 0x40     'Cerrar el transistor del tercer display
+          delay_ms(2)      'Retraso de 2ms
+
+          caracter = "O"   'Definir un dato inicial a la variable "caracter"
+          letras           'Llamar al procedimiento "letras"
+          portd = 0        'Abrir los 4 transistores
+          portb = dato     'Definir la variable dato al puerto b
+          portd = 0x80     'Cerrar el transistor del cuarto display
+          delay_ms(2)      'Retraso de 2ms
+      next conta3          'Fin bucle for para mostrar "HALO" en el display de 4 dígitos por aproximadamente 3 segundos
+      portd=0         'Apagar todos los displays
+      delay_ms(500)   'Retraso de 500ms
+
+      
+      For contaaux = 0 to 9    'Inicio bucle for de 0 a 9
+          digito = contaaux    'Definir el dato de una variable "contaaux" a la variable "digito"
+          numeros              'Llamar al procedimiento "numeros"
+          portd=0xF0           'Cerrar todos los transistores
+          portb = dato         'Definir la variable dato al puerto b
+          delay_ms(500)        'Retraso de 500ms
+      next contaaux            'Fin bucle for
+      
+      portd=0              'Apagar todos los displays
+      delay_ms(500)        'Retraso de 500ms
+
+wend  'Fin bucle infinito
+end.  'Fin del código

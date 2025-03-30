@@ -1,0 +1,13 @@
+0	1	mBPic.exe -MSF -DBG -pP16F887 -Y -DL -O11111114 -fo20 -N"C:\Users\Mateo Peralta\Desktop\Microcontroladores 3 BGU\Manejo Displays 4 Dígitos\CódigoMikroBasic\SelectCase_Procedimientos_ManejoDisplay4Dígitos.mbppi" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroBasic PRO for PIC\Defs\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroBasic PRO for PIC\Uses\P16\" -SP"C:\Users\Mateo Peralta\Desktop\Microcontroladores 3 BGU\Manejo Displays 4 Dígitos\CódigoMikroBasic\" "__Lib_Math.mcl" "__Lib_MathDouble.mcl" "__Lib_System.mcl" "__Lib_Delays.mcl" "SelectCase_Procedimientos_ManejoDisplay4D_gitos.mbas"	 
+diagnostics: 0	155	Available RAM: 352 [bytes], Available ROM: 8192 [bytes]	 
+diagnostics: 0	133	Compilation Started	C:\Users\Mateo Peralta\Desktop\Microcontroladores 3 BGU\Manejo Displays 4 Dígitos\CódigoMikroBasic\SelectCase_Procedimientos_ManejoDisplay4D_gitos.mbas
+hint: 1	1015	Hint: Compiling unit "C:\Users\Mateo Peralta\Desktop\Microcontroladores 3 BGU\Manejo Displays 4 Dígitos\CódigoMikroBasic\SelectCase_Procedimientos_ManejoDisplay4D_gitos.mbas"	SelectCase_Procedimientos_ManejoDisplay4D_gitos.mbas
+hint: 322	1010	Hint: Unit "SelectCase_Procedimientos_ManejoDisplay4D_gitos.mbas" has been recompiled	SelectCase_Procedimientos_ManejoDisplay4D_gitos.mbas
+diagnostics: 0	134	Compiled Successfully	C:\Users\Mateo Peralta\Desktop\Microcontroladores 3 BGU\Manejo Displays 4 Dígitos\CódigoMikroBasic\SelectCase_Procedimientos_ManejoDisplay4D_gitos.mbas
+diagnostics: 0	139	All files Compiled in 32 ms	 
+hint: 0	1144	Used RAM (bytes): 7 (2%)  Free RAM (bytes): 345 (98%)	Used RAM (bytes): 7 (2%)  Free RAM (bytes): 345 (98%)
+hint: 0	1144	Used ROM (program words): 969 (12%)  Free ROM (program words): 7223 (88%)	Used ROM (program words): 969 (12%)  Free ROM (program words): 7223 (88%)
+diagnostics: 0	145	Project Linked Successfully	SelectCase_Procedimientos_ManejoDisplay4Dígitos.mbppi
+diagnostics: 0	140	Linked in 31 ms	 
+diagnostics: 0	141	Project 'SelectCase_Procedimientos_ManejoDisplay4Dígitos.mbppi' completed: 109 ms	 
+diagnostics: 0	103	Finished successfully: 18 nov. 2024, 21:29:49	SelectCase_Procedimientos_ManejoDisplay4Dígitos.mbppi
