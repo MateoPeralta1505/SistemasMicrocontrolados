@@ -1,0 +1,179 @@
+program Manejo_Teclado_LCD_Leds
+'Evaluación Sumativa
+'Realizado por: Mateo Peralta
+'Fecha: 11/3/2025
+
+
+'Declaración de alias (símbolos)
+symbol pause = delay_ms(500)
+symbol pdes = delay_ms(50)
+symbol pr = delay_ms(10)
+symbol CLAVE_CORRECTA = 2424 'Clave correcta
+'Declarations section
+
+dim LCD_RS as sbit at RC4_bit
+    LCD_EN as sbit at RC5_bit
+    LCD_D4 as sbit at RC0_bit
+    LCD_D5 as sbit at RC1_bit
+    LCD_D6 as sbit at RC2_bit
+    LCD_D7 as sbit at RC3_bit
+
+dim LCD_RS_Direction as sbit at TRISC4_bit
+    LCD_EN_Direction as sbit at TRISC5_bit
+    LCD_D4_Direction as sbit at TRISC0_bit
+    LCD_D5_Direction as sbit at TRISC1_bit
+    LCD_D6_Direction as sbit at TRISC2_bit
+    LCD_D7_Direction as sbit at TRISC3_bit
+
+dim tec, valor, clave_ingresada, intentos as word
+
+dim keypadport as byte at portb
+dim txt as string[10]
+dim led1, led2 as bit
+
+sub procedure inicio
+    lcd_cmd(_lcd_clear)
+    lcd_out(1,1,"SUMATIVA II")
+    delay_ms(1000)
+end sub
+
+sub procedure ingresoClave
+    lcd_cmd(_lcd_clear)
+    lcd_out(1,1,"CLAVE=")
+end sub
+
+sub procedure menu
+    clave_ingresada = 0
+    lcd_cmd(_lcd_clear)
+    lcd_out(1,1,"A. L1     B. L2")
+    led1 = 0
+    led2 = 0
+end sub
+
+sub procedure teclaA
+    if tec = 4 then
+        led1 = not led1
+        if led1 = 1 then
+            portd.0 = 1
+        else
+            portd.0 = 0
+        end if
+    end if
+end sub
+
+sub procedure teclaB
+    if tec = 8 then
+        led2 = not led2
+        if led2 = 1 then
+            portd.1 = 1
+        else
+            portd.1 = 0
+        end if
+    end if
+end sub
+
+sub procedure correcta
+    for intentos = 1 to 2  ''Parpadeo de 2 veces los leds (Clave correcta)
+        portd = 255
+        pause
+        portd = 0
+        pause
+    next intentos
+end sub
+
+main:
+anselh = 0
+ansel = 0
+trisc = 0
+trisd = 0
+portd = 0
+Lcd_Init()
+keypad_init()
+
+' Pantalla de inicio
+inicio
+
+'Ingresar clave
+ingresoClave
+clave_ingresada = 0
+intentos = 0
+
+Ingreso_Clave:
+clave_ingresada = 0
+ingresoClave
+
+while 1
+    tec = 0
+    while tec = 0
+        tec = keypad_key_click()
+    wend
+
+    select case tec
+      case 1 valor = 1
+      case 2 valor = 2
+      case 3 valor = 3
+      case 4 valor = 65
+      case 5 valor = 4
+      case 6 valor = 5
+      case 7 valor = 6
+      case 8 valor = 66
+      case 9 valor = 7
+      case 10 valor = 8
+      case 11 valor = 9
+      case 12 valor = 67
+      case 13 valor = 42 'Tecla * (Enter)
+      case 14 valor = 0
+      case 15 valor = 35
+      case 16 valor = 68
+    end select
+
+    if valor < 10 then
+        lcd_chr_cp(48 + valor)
+        clave_ingresada = clave_ingresada * 10 + valor
+    end if
+
+    if valor = 42 then 'Comprobar la clave al presionar "*"
+        if clave_ingresada = CLAVE_CORRECTA then
+            lcd_cmd(_lcd_clear)
+            lcd_out(1,1,"CORRECTO")
+            delay_ms(1000)
+
+            correcta
+
+            goto Menu
+        else
+            intentos = intentos + 1
+            if intentos = 2 then
+
+                while true  'Parpadeo infinito (Clave incorrecta)
+                    lcd_out(1,1,"INCORRECTO      ")
+                    portd = 255
+                    pause
+                    portd = 0
+                    pause
+                wend
+            end if
+            lcd_cmd(_lcd_clear)
+            lcd_out(1,1,"INCORRECTO      ")
+            delay_ms(1000)
+            goto Ingreso_Clave
+        end if
+    end if
+wend
+
+Menu:
+menu
+
+'Control Leds
+while 1
+    tec = 0
+    while tec = 0
+        tec = keypad_key_click()
+    wend
+    teclaA
+    teclaB
+wend
+end.
+
+
+
