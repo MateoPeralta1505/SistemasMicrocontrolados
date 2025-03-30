@@ -1,0 +1,307 @@
+program Manejo_Teclado_LCD_Leds
+'Realizado por: Mateo Peralta
+'Declaración de alias (símbolos)
+
+symbol pause = delay_ms(500)
+symbol pdes = delay_ms(50)
+symbol pr = delay_ms(10)
+
+' Declarations section
+
+dim LCD_RS as sbit at RC4_bit
+    LCD_EN as sbit at RC5_bit
+    LCD_D4 as sbit at RC0_bit
+    LCD_D5 as sbit at RC1_bit
+    LCD_D6 as sbit at RC2_bit
+    LCD_D7 as sbit at RC3_bit
+
+dim LCD_RS_Direction as sbit at TRISC4_bit
+    LCD_EN_Direction as sbit at TRISC5_bit
+    LCD_D4_Direction as sbit at TRISC0_bit
+    LCD_D5_Direction as sbit at TRISC1_bit
+    LCD_D6_Direction as sbit at TRISC2_bit
+    LCD_D7_Direction as sbit at TRISC3_bit
+
+ dim tec, valor,contra,conta as word
+ dim keypadport as byte at portb
+ dim txt as string[10]
+ dim txt1 as string[10]
+ dim bloqueo, opcion, secuencia, bloqueo_num as bit
+ dim dato as longword
+ dim posicion, Secuencia12 as byte
+
+ sub procedure borrar
+ 'pause
+ lcd_cmd(_lcd_clear)
+ lcd_out(1, 1, "Valor:")
+ dato=0
+ portd = 0
+ end sub
+
+''SECUENCIA ascendente
+sub procedure SecAscendente
+    select case secuencia12
+           case 1
+                select case posicion
+                       case 1 portd = %0001
+                       case 2  portd = %0010
+                       case 3  portd = %0100
+                       case 4  portd = %1000
+                end select
+           case 2
+                select case posicion
+                       case 1  portd = %0011
+                       case 2  portd = %0110
+                       case 3  portd = %1100
+                       case 4  portd = %1001
+                end select
+    end select
+end sub
+
+''CONTADOR ASCENDENTE
+sub procedure contaAscendente
+    posicion = 0  ' Inicializamos en posición 0 (antes era 1)
+    for conta = 1 to dato
+        posicion = posicion + 1
+        if posicion > 4 then posicion = 1 end if  ' Reiniciamos a 1 después de 4
+
+        WordToStr(conta, txt1)
+        lcd_out(2,7, txt1)
+
+        ' Selección de secuencia ascendente
+        select case secuencia12
+            case 1  ' Secuencia 1 ascendente
+                select case posicion
+                    case 1 portd = %0001  ' LED 1
+                    case 2 portd = %0010  ' LED 2
+                    case 3 portd = %0100  ' LED 3
+                    case 4 portd = %1000  ' LED 4
+                end select
+            case 2  ' Secuencia 2 ascendente
+                select case posicion
+                    case 1 portd = %0011  ' LEDS 1 y 2
+                    case 2 portd = %0110  ' LEDS 2 y 3
+                    case 3 portd = %1100  ' LEDS 3 y 4
+                    case 4 portd = %1001  ' LEDS 4 y 1
+                end select
+        end select
+        pdes
+    next conta
+    borrar
+end sub
+
+ 'secuencia descendente
+sub procedure SecDescendente
+    select case secuencia12
+           case 1
+                select case posicion
+                       case 1  portd = %0001     ' LED 1
+                       case 2  portd = %0010     ' LED 2
+                       case 3  portd = %0100     ' LED 3
+                       case 4  portd = %1000     ' LED 4
+                end select
+           case 2
+                select case posicion
+                       case 1  portd = %0011     'LEDS 1 y 2
+                       case 2  portd = %0110     'LEDS 2 y 3
+                       case 3  portd = %1100     'LEDS 3 y 4
+                       case 4  portd = %1001     'LEDS 4 y 1
+                end select
+    end select
+end sub
+
+''CONTADOR DESCENDENTE CORREGIDO
+sub procedure contaDescendente
+    posicion = 4  ' Iniciamos en la última posición
+    for conta = dato to 1 step -1
+        WordToStr(conta, txt1)
+        lcd_out(2,7, txt1)
+
+        ' Selección de secuencia descendente (orden invertido)
+        select case secuencia12
+            case 1  ' Secuencia 1 descendente
+                select case posicion
+                    case 1 portd = %0001
+                    case 2 portd = %0010
+                    case 3 portd = %0100
+                    case 4 portd = %1000
+                end select
+            case 2  ' Secuencia 2 descendente
+                select case posicion
+                    case 1 portd = %0011
+                    case 2 portd = %0110
+                    case 3 portd = %1100
+                    case 4 portd = %1001
+                end select
+        end select
+
+        pdes
+        posicion = posicion - 1
+        if posicion < 1 then posicion = 4 end if
+    next conta
+    borrar
+end sub
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Sub procedure secuencia3As
+    posicion = 0  ' Inicializamos en posición 0 (antes era 1)
+    for conta = 1 to dato
+        posicion = posicion + 1
+        if posicion > 8 then posicion = 1 end if  ' Reiniciamos a 1 después de 8
+
+        WordToStr(conta, txt1)
+        lcd_out(2,7, txt1)
+
+        ' Selección de secuencia ascendente
+        select case posicion
+               case 1  portd = %0001     ' LED 1
+               case 2  portd = %0011     ' LED 1 y 2
+               case 3  portd = %0010     ' LED 2
+               case 4  portd = %0110     ' LED 2 y 3
+               case 5  portd = %0100     ' LED 3
+               case 6  portd = %1100     ' LED 3 y 4
+               case 7  portd = %1000     ' LED 4
+               case 8  portd = %1001     ' LED 4 y 1
+       end select
+        pdes
+    next conta
+    borrar
+end sub
+
+'CONTA_SEC3_DESCENDENTE
+sub procedure secuencia3Des
+    posicion = 8  ' Iniciamos en la última posición
+    for conta = dato to 1 step -1
+        WordToStr(conta, txt1)
+        lcd_out(2,7, txt1)
+
+        ' Selección de secuencia descendente (orden invertido)
+        select case posicion
+               case 1  portd = %0001     ' LED 1
+               case 2  portd = %0011     ' LED 1 y 2
+               case 3  portd = %0010     ' LED 2
+               case 4  portd = %0110     ' LED 2 y 3
+               case 5  portd = %0100     ' LED 3
+               case 6  portd = %1100     ' LED 3 y 4
+               case 7  portd = %1000     ' LED 4
+               case 8  portd = %1001     ' LED 4 y 1
+       end select
+        pdes
+        posicion = posicion - 1
+        if posicion < 1 then posicion = 8 end if
+    next conta
+    borrar
+end sub
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+
+sub procedure teclado
+      tec = 0
+      while(tec = 0)
+      tec = keypad_key_click()
+      wend
+
+       select case tec
+       case 1 valor = 1
+       case 2 valor = 2
+       case 3 valor = 3
+       case 4 valor = 65
+       case 5 valor = 4
+       case 6 valor = 5
+       case 7 valor = 6
+       case 8 valor = 66
+       case 9 valor = 7
+       case 10 valor = 8
+       case 11 valor = 9
+       case 12 valor = 67
+       case 13 valor = 42
+       case 14 valor = 0
+       case 15 valor = 35
+       case 16 valor = 68
+      end select
+
+      if (valor < 10) and (bloqueo = 1) and (bloqueo_num = 0) then lcd_chr_cp (48+valor) dato = dato * 10 + valor end if
+end sub
+
+sub procedure menu
+     portd = 0
+end sub
+
+main:
+anselh = 0
+ansel = 0
+trisc = 0
+trisd = 0
+portd = 0
+Lcd_Init()
+keypad_init()
+
+while (1)
+dato = 0
+bloqueo = 0
+bloqueo_num = 0
+lcd_out(1, 1, "A. Ascendente")
+lcd_out(2, 1, "B. Descendente")
+
+while (1)
+ teclado
+ if valor = 65 then opcion = 0 bloqueo = 1 break end if
+ if valor = 66 then opcion = 1 bloqueo = 1 break end if
+ wend
+
+valores:
+ borrar
+ lcd_out(1,1,"Valor:")
+
+ while (1)
+       teclado
+       if (valor = 68) and (dato < 65536) and (dato > 0) then goto secuencias end if
+       if (valor = 68) and (dato = 0) then borrar lcd_out(1,1, "Ingrese valor") delay_ms(1000) goto valores end if
+       if (dato > 65535) then borrar lcd_out(1,1, "ERROR RANGO") delay_ms(1000) goto valores end if
+ wend
+
+secuencias:
+lcd_cmd(_lcd_clear)
+lcd_out(1, 1, "A. S1")
+lcd_out(1,10, "B. S2")
+lcd_out(2, 1, "C. S3")
+bloqueo_num = 1
+
+' En la sección de secuencias, cambia esto:
+while (1)
+    teclado
+    if valor = 65 then  'Secuencia 1
+        lcd_cmd(_lcd_clear)
+        secuencia12 = 1
+        if opcion = 0 then
+            contaAscendente
+        else
+            contaDescendente
+        end if
+        menu
+        goto main
+    end if
+    if valor = 66 then  'Secuencia 2
+        lcd_cmd(_lcd_clear)
+        secuencia12 = 2
+        if opcion = 0 then
+            contaAscendente
+        else
+            contaDescendente
+        end if
+        menu
+        goto main
+    end if
+    if valor = 67 then  'Secuencia 3  '''NUEVA NUEVA NUEVA
+       lcd_cmd(_lcd_clear)
+       Secuencia12 = 3
+       if opcion = 0 then
+          secuencia3As
+       else
+          secuencia3Des
+       end if
+       menu
+       goto main
+    end if
+wend
+wend
+end.
