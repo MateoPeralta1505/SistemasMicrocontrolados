@@ -1,0 +1,13 @@
+0	1	mBPic.exe -MSF -DBG -pP16F887 -Y -DL -O11111114 -fo20 -N"D:\PROGRAMAS MATEO\Microcontroladores 3 BGU\ManejoTecladoMatricial_Visualizar_LCD\Manejo_Teclado_LCD.mbppi" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroBasic PRO for PIC\Defs\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroBasic PRO for PIC\Uses\P16\" -SP"D:\PROGRAMAS MATEO\Microcontroladores 3 BGU\ManejoTecladoMatricial_Visualizar_LCD\" "__Lib_Math.mcl" "__Lib_MathDouble.mcl" "__Lib_System.mcl" "__Lib_Delays.mcl" "__Lib_String.mcl" "__Lib_Conversions.mcl" "__Lib_Keypad4x4.mcl" "__Lib_LcdConsts.mcl" "__Lib_Lcd.mcl" "Manejo_Teclado_LCD.mbas"	 
+diagnostics: 0	155	Available RAM: 352 [bytes], Available ROM: 8192 [bytes]	 
+diagnostics: 0	133	Compilation Started	D:\PROGRAMAS MATEO\Microcontroladores 3 BGU\ManejoTecladoMatricial_Visualizar_LCD\Manejo_Teclado_LCD.mbas
+hint: 1	1015	Hint: Compiling unit "D:\PROGRAMAS MATEO\Microcontroladores 3 BGU\ManejoTecladoMatricial_Visualizar_LCD\Manejo_Teclado_LCD.mbas"	Manejo_Teclado_LCD.mbas
+hint: 102	1010	Hint: Unit "Manejo_Teclado_LCD.mbas" has been recompiled	Manejo_Teclado_LCD.mbas
+diagnostics: 0	134	Compiled Successfully	D:\PROGRAMAS MATEO\Microcontroladores 3 BGU\ManejoTecladoMatricial_Visualizar_LCD\Manejo_Teclado_LCD.mbas
+diagnostics: 0	139	All files Compiled in 78 ms	 
+hint: 0	1144	Used RAM (bytes): 44 (12%)  Free RAM (bytes): 308 (88%)	Used RAM (bytes): 44 (12%)  Free RAM (bytes): 308 (88%)
+hint: 0	1144	Used ROM (program words): 1035 (13%)  Free ROM (program words): 7157 (87%)	Used ROM (program words): 1035 (13%)  Free ROM (program words): 7157 (87%)
+diagnostics: 0	145	Project Linked Successfully	Manejo_Teclado_LCD.mbppi
+diagnostics: 0	140	Linked in 188 ms	 
+diagnostics: 0	141	Project 'Manejo_Teclado_LCD.mbppi' completed: 282 ms	 
+diagnostics: 0	103	Finished successfully: 18 feb. 2025, 15:57:40	Manejo_Teclado_LCD.mbppi

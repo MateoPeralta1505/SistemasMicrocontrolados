@@ -1,0 +1,102 @@
+program Manejo_Teclado_LCD
+'Realizado por: Mateo Peralta
+'Declaración de alias (símbolos)
+
+symbol pause = delay_ms(500)
+symbol pdes = delay_ms(50)
+symbol pr = delay_ms(10)
+
+' Declarations section
+
+dim LCD_RS as sbit at RC4_bit
+    LCD_EN as sbit at RC5_bit
+    LCD_D4 as sbit at RC0_bit
+    LCD_D5 as sbit at RC1_bit
+    LCD_D6 as sbit at RC2_bit
+    LCD_D7 as sbit at RC3_bit
+
+dim LCD_RS_Direction as sbit at TRISC4_bit
+    LCD_EN_Direction as sbit at TRISC5_bit
+    LCD_D4_Direction as sbit at TRISC0_bit
+    LCD_D5_Direction as sbit at TRISC1_bit
+    LCD_D6_Direction as sbit at TRISC2_bit
+    LCD_D7_Direction as sbit at TRISC3_bit
+
+ dim tec, valor,contra,dato,conta as word
+ dim keypadport as byte at portb
+ dim txt as string[6]
+ dim txt1 as string[6]
+ 
+ sub procedure borrar
+ pause
+ lcd_cmd(_lcd_clear)
+ lcd_out(1, 1, "Valor:")
+ dato=0
+ end sub
+
+
+
+
+main:
+'   Main program
+anselh = 0
+dato = 0
+trisc = 0
+Lcd_Init()
+keypad_init()
+ 
+lcd_out(1, 1, "Valor:")
+
+while (1)
+ tec = 0
+ while(tec = 0)
+ tec = keypad_key_click()
+ wend
+
+ select case tec
+ case 1 valor = 1
+ case 2 valor = 2
+ case 3 valor = 3
+ case 4 valor = 65
+ case 5 valor = 4
+ case 6 valor = 5
+ case 7 valor = 6
+ case 8 valor = 66
+ case 9 valor = 7
+ case 10 valor = 8
+ case 11 valor = 9
+ case 12 valor = 67
+ case 13 valor = 42
+ case 14 valor = 0
+ case 15 valor = 35
+ case 16 valor = 68
+ end select
+
+'visualizar
+ if valor < 10 then
+ ByteToStr(valor, txt)
+ ltrim(txt)
+ lcd_out_cp(txt)
+ dato = dato*10 + valor
+ end if
+ 
+
+ if (valor = 35) then
+    for conta = dato to 0 step -1
+      WordToStr(conta,txt1)
+      lcd_out(2,7,txt1)
+      pdes
+    next conta
+    borrar
+ end if
+
+ if (valor = 42) then
+    for conta=0 to dato
+      WordToStr(conta,txt1)
+      lcd_out(2,7,txt1)
+      pdes
+   next conta
+   borrar
+end if
+wend
+end.
