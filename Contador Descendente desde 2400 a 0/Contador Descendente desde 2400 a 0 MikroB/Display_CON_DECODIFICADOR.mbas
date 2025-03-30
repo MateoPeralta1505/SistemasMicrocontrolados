@@ -1,0 +1,50 @@
+program Display_CON_DECODIFICADOR
+'Contador descendente desde 2400 a 0 con pasos de -6 en decimal (display) y en binario desde que el contador sea menor a 255 (leds)
+'Realizado por: Mateo Peralta
+'Fecha de entrega: 3/12/24
+' Declarations section
+dim contador as word  'Definir la variable "contador" como dato de tipo word
+Dim unimil, centena, decena, unidad, veces, dato as byte   'Definir las variables "unimil", "centena", "decena", "unidad", "veces", "datos" como dato de tipo byte
+main:
+'   Main program
+trisb = 0       'Puerto B como salida
+trisc = 0       'Puerto C como salida
+trisd = 0       'Puerto D como salida
+portb = 0       'Puerto B empieza en cero
+portc = 0       'Puerto C empieza en cero
+portd = 0       'Puerto D empieza en cero
+anselh = 0      'Puerto B como digital
+
+while (1)       'Inicio bucle infinito
+  For contador = 2400 to 0 step -6                                              'Bucle for "contador" desde 2400 a 0 descendente (pasos de -6)
+      unimil = contador / 1000                                                  'Equivalente matemático de la variable "unimil"
+      centena = (contador / 100) - (unimil * 10)                                'Equivalente matemático de la variable "centena"
+      decena = (contador / 10) - ((unimil * 100) + (centena * 10))              'Equivalente matemático de la variable "decena"
+      unidad = contador - ((unimil * 1000) + (centena * 100) + (decena * 10))   'Equivalente matemático de la variable "unidad"
+      if contador < 255 then portd = contador end if                            'Condición para mostrar contador en binario siempre y cuando contador sea menor a 255
+      for veces = 0 to 85         'Bulce for "veces" de 0 a 100 para rotulación del display
+                 portc = 0         'Abro transistores
+                 portb = unimil    'Coloco el dato que quiero visualizar en el display
+                 portc = %0001     'Cierro transistores
+                 delay_ms(1)       'retraso de 1ms
+
+                 portc = 0         'Abro transistores
+                 portb = centena   'Coloco el dato que quiero visualizar en el display
+                 portc = %0010     'Cierro transistores
+                 delay_ms(1)       'retraso de 1ms
+                 
+                 portc = 0         'Abro transistores
+                 portb = decena    'Coloco el dato que quiero visualizar en el display
+                 portc = %0100     'Cierro transistores
+                 delay_ms(1)       'retraso de 1ms
+
+                 portc = 0         'Abro transistores
+                 portb = unidad    'Coloco el dato que quiero visualizar en el display
+                 portc = %1000     'Cierro transistores
+                 delay_ms(1)       'retraso de 1ms
+      next veces                   'Final del bucle for "veces" para la rotulación del display
+  next contador                    'Fin bucle for "contador"
+wend            'Fin bucle infinito
+end.
+
+

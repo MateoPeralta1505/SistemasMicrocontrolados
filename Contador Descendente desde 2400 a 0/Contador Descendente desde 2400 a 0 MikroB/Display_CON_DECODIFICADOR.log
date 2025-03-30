@@ -1,0 +1,13 @@
+0	1	mBPic.exe -MSF -DBG -pP16F887 -Y -DL -O11111114 -fo20 -N"C:\Users\Mateo Peralta\Desktop\Microcontroladores 3 BGU\Display CON DECODIFICADOR\Contador Descendente desde 2400 a 0 MikroB\Display_CON_DECODIFICADOR.mbppi" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroBasic PRO for PIC\Defs\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroBasic PRO for PIC\Uses\P16\" -SP"C:\Users\Mateo Peralta\Desktop\Microcontroladores 3 BGU\Display CON DECODIFICADOR\Contador Descendente desde 2400 a 0 MikroB\" "__Lib_Math.mcl" "__Lib_MathDouble.mcl" "__Lib_System.mcl" "__Lib_Delays.mcl" "Display_CON_DECODIFICADOR.mbas"	 
+diagnostics: 0	155	Available RAM: 352 [bytes], Available ROM: 8192 [bytes]	 
+diagnostics: 0	133	Compilation Started	C:\Users\Mateo Peralta\Desktop\Microcontroladores 3 BGU\Display CON DECODIFICADOR\Contador Descendente desde 2400 a 0 MikroB\Display_CON_DECODIFICADOR.mbas
+hint: 1	1015	Hint: Compiling unit "C:\Users\Mateo Peralta\Desktop\Microcontroladores 3 BGU\Display CON DECODIFICADOR\Contador Descendente desde 2400 a 0 MikroB\Display_CON_DECODIFICADOR.mbas"	Display_CON_DECODIFICADOR.mbas
+hint: 48	1010	Hint: Unit "Display_CON_DECODIFICADOR.mbas" has been recompiled	Display_CON_DECODIFICADOR.mbas
+diagnostics: 0	134	Compiled Successfully	C:\Users\Mateo Peralta\Desktop\Microcontroladores 3 BGU\Display CON DECODIFICADOR\Contador Descendente desde 2400 a 0 MikroB\Display_CON_DECODIFICADOR.mbas
+diagnostics: 0	139	All files Compiled in 0 ms	 
+hint: 0	1144	Used RAM (bytes): 14 (4%)  Free RAM (bytes): 338 (96%)	Used RAM (bytes): 14 (4%)  Free RAM (bytes): 338 (96%)
+hint: 0	1144	Used ROM (program words): 256 (3%)  Free ROM (program words): 7936 (97%)	Used ROM (program words): 256 (3%)  Free ROM (program words): 7936 (97%)
+diagnostics: 0	145	Project Linked Successfully	Display_CON_DECODIFICADOR.mbppi
+diagnostics: 0	140	Linked in 16 ms	 
+diagnostics: 0	141	Project 'Display_CON_DECODIFICADOR.mbppi' completed: 31 ms	 
+diagnostics: 0	103	Finished successfully: 30 nov. 2024, 21:55:06	Display_CON_DECODIFICADOR.mbppi
