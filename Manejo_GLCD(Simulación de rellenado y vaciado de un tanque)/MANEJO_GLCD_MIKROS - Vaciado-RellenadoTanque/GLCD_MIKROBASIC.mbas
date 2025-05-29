@@ -1,0 +1,90 @@
+program GLCD_MIKROBASIC
+
+symbol pr = delay_ms(50)
+' Glcd module connections
+dim GLCD_DataPort as byte at PORTC
+dim GLCD_CS1 as sbit at RA0_bit
+    GLCD_CS2 as sbit at RA1_bit
+    GLCD_RS  as sbit at RA2_bit
+    GLCD_RW  as sbit at RA3_bit
+    GLCD_EN  as sbit at RA4_bit
+    GLCD_RST as sbit at RA5_bit
+
+dim GLCD_CS1_Direction as sbit at TRISA0_bit
+    GLCD_CS2_Direction as sbit at TRISA1_bit
+    GLCD_RS_Direction  as sbit at TRISA2_bit
+    GLCD_RW_Direction  as sbit at TRISA3_bit
+    GLCD_EN_Direction  as sbit at TRISA4_bit
+    GLCD_RST_Direction as sbit at TRISA5_bit
+
+dim boton, borrars, i, y as byte
+
+' Subrutina para pintar con animación vertical
+sub procedure pintar_bloque(dim x1, y1, x2, y2 as byte)
+    for y = y2 to y1 step -1
+        Glcd_Line(x1, y, x2, y, 1)
+        Delay_ms(10) ' Controla la velocidad del "pintado"
+    next y
+end sub
+
+sub procedure dibujarPantalla()
+    Glcd_Fill(0)
+    Glcd_Rectangle(5, 5, 20, 60, 1) ''60
+
+    Glcd_Write_text("lleno", 25, 0, 1)
+    Glcd_Write_text("3/4", 25, 2, 1)
+    Glcd_Write_text("2/4", 25, 4, 1)
+    Glcd_Write_text("1/4", 25, 6, 1)
+    Glcd_Write_text("Vacio", 25, 7, 1)
+end sub
+
+main:
+    anselh = 0
+    ansel = 0
+    trisb = %00000011
+    boton = 0
+    borrars = 1
+
+    Glcd_Init()
+    Glcd_Fill(0)
+    Delay_ms(1000)
+    dibujarPantalla()
+
+    while (1)
+        if (Portb.0 = 1) and (boton = 0) then pr
+            Glcd_Rectangle(5, 5, 20, 60, 1)
+            Delay_ms(15)
+            boton = 1
+        end if
+
+        if (Portb.0 = 1) and (boton = 1) then pr
+            pintar_bloque(6, 47, 19, 59) ' bloque 1
+            boton = 2
+        end if
+
+        if (Portb.0 = 1) and (boton = 2) then pr
+            pintar_bloque(6, 34, 19, 46) ' bloque  2
+            boton = 3
+        end if
+
+        if (Portb.0 = 1) and (boton = 3) then pr
+            pintar_bloque(6, 21, 19, 33) ' bloque  3
+            boton = 4
+        end if
+
+        if (Portb.0 = 1) and (boton = 4) then pr
+            pintar_bloque(6, 6, 19, 20) ' bloque 4
+            boton = 5
+        end if
+
+        if (Portb.1 = 1) and (borrars = 1) then pr
+            Glcd_Box(6, 6, 19, 20, 0)
+            Glcd_Box(6, 21, 19, 33, 0)
+            Glcd_Box(6, 34, 19, 46, 0)
+            Glcd_Box(6, 47, 19, 59, 0)
+            Glcd_Rectangle(5, 5, 20, 60, 1)
+            boton = 1
+            Delay_ms(20)
+        end if
+    wend
+end.
