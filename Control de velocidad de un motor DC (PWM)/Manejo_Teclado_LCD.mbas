@@ -1,0 +1,53 @@
+program Manejo_Teclado_LCD
+'Realizado por: Mateo Peralta
+
+symbol pause = delay_ms(500)
+symbol pdes = delay_ms(50)
+symbol pr = delay_ms(10)
+
+dim LCD_RS as sbit at RB4_bit
+    LCD_EN as sbit at RB5_bit
+    LCD_D4 as sbit at RB0_bit
+    LCD_D5 as sbit at RB1_bit
+    LCD_D6 as sbit at RB2_bit
+    LCD_D7 as sbit at RB3_bit
+
+dim LCD_RS_Direction as sbit at TRISB4_bit
+    LCD_EN_Direction as sbit at TRISB5_bit
+    LCD_D4_Direction as sbit at TRISB0_bit
+    LCD_D5_Direction as sbit at TRISB1_bit
+    LCD_D6_Direction as sbit at TRISB2_bit
+    LCD_D7_Direction as sbit at TRISB3_bit
+
+dim dato as word
+dim valor as byte
+dim txt_pwm as string[6]
+dim txt_adc as string[6]
+dim resultado as string[4]
+
+main:
+ansel = 1
+anselh = 0
+trisa = 1
+trisc.2 = 0
+portc.2 = 0
+
+Lcd_init()
+Lcd_cmd(_lcd_cursor_off)
+Lcd_out(1, 1, "PWM: ")
+Lcd_out(2, 1, "ADC: ")
+ADC_Init()
+PWM1_Init(5000)
+PWM1_Start()
+PWM1_Set_Duty(0)
+
+while (1)
+    dato = ADC_Read(0)
+    valor = dato / 4
+    WordToStr(valor, txt_pwm)
+    WordToStr(dato, txt_adc)
+    Lcd_Out(1, 6, txt_pwm)
+    Lcd_Out(2, 6, txt_adc)
+    PWM1_Set_Duty(valor)
+wend
+end.
